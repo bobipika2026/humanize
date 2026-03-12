@@ -4,48 +4,60 @@ description: |
   AI内容人性化检测与改进指导。用于检测文本中的AI生成特征（机械感、套话、过度正式、缺乏细节等），
   并给出评分和改进建议，帮助内容更自然、更像人写的。适用于：用户完成文本创作后评估、AI生成内容优化、
   内容审核场景。当用户需要：检测文本是否像AI生成、让AI生成的内容更自然、给内容进行人性化评分时触发。
+  /en AI content humanization detection and optimization guide. Detects AI-generated features (mechanical feel, clichés, overly formal, lack of details), provides scores and improvement suggestions to make content more natural and human-like. Use when: detecting if text is AI-generated, making AI content more natural, scoring content humanization.
 metadata:
   {
     "openclaw": {
       "category": "content-generation",
-      "tags": ["AI检测", "文本优化", "人性化", "内容质量"],
+      "tags": ["AI检测", "文本优化", "人性化", "内容质量", "AI detection", "text optimization", "humanization"],
       "version": "1.0.0"
     }
   }
 ---
 
-# Humanize Text - AI内容人性化检测
+# Humanize - AI内容人性化检测 / AI Content Humanization Detection
 
-## 核心功能
+## 核心功能 / Core Features
 
 1. **AI特征检测** - 15个检测维度，识别文本中的AI生成痕迹
+   /en **AI Feature Detection** - 15 dimensions to identify AI-generated traces
+
 2. **动态评分系统** - 0-100分，根据场景自动调整权重
-3. **自动场景判断** - 根据上下文自动识别20+种用户角色
+   /en **Dynamic Scoring System** - 0-100 score with automatic scene-based weight adjustment
+
+3. **自动场景判断** - 根据上下文自动识别21种用户角色
+   /en **Automatic Scene Detection** - Auto-identifies 21 user scenarios from context
+
 4. **改进建议** - 具体、可执行的优化方向
+   /en **Improvement Suggestions** - Specific, actionable optimization directions
 
-## 检测维度（15个）
+---
 
-| 序号 | 维度 | 英文名 | AI特征表现 |
-|------|------|--------|-----------|
-| 1 | 句式复杂度 | complexity | 从句过多、句子过长 |
-| 2 | 词汇密度 | vocabulary | 抽象名词多、缺口语词 |
-| 3 | 情感波动 | emotion | 语气平稳、缺感叹词 |
-| 4 | 细节密度 | detail | 缺乏具体例子/数字 |
-| 5 | 模式化开头/结尾 | pattern | "首先""总之"类套话 |
-| 6 | 突发性 | burstiness | 句子长度过于均匀 |
-| 7 | 套话密度 | cliche | "赋能""闭环"类黑话 |
-| 8 | 过度礼貌 | over_polite | 过于客套 |
-| 9 | 确定性过高 | over_certain | 缺乏"可能""也许" |
-| 10 | 逻辑过于完美 | over_perfect | 缺乏思维跳跃 |
-| 11 | 重复表达 | repetition | 近义句反复出现 |
-| 12 | 格式痕迹 | format | Markdown过于工整 |
-| 13 | 主观缺乏 | subjectivity | 缺乏个人立场 |
-| 14 | 例子泛化 | generalization | "比如"但无真实案例 |
-| 15 | 结尾套路 | ending | "希望对您有帮助" |
+## 检测维度（15个） / Detection Dimensions (15)
 
-## 场景权重配置（21场景 × 15维度）
+| 序号 | 维度 | 英文名 | AI特征表现 / AI Characteristic |
+|------|------|--------|------------------------------|
+| 1 | 句式复杂度 | complexity | 从句过多、句子过长 / Overly complex sentences |
+| 2 | 词汇密度 | vocabulary | 抽象名词多、缺口语词 / Too many abstract nouns |
+| 3 | 情感波动 | emotion | 语气平稳、缺感叹词 / Flat emotion, lacks exclamations |
+| 4 | 细节密度 | detail | 缺乏具体例子/数字 / Lacks specific examples/numbers |
+| 5 | 模式化开头/结尾 | pattern | "首先""总之"类套话 / Clichés like "First", "In conclusion" |
+| 6 | 突发性 | burstiness | 句子长度过于均匀 / Too uniform sentence length |
+| 7 | 套话密度 | cliche | "赋能""闭环"类黑话 / Buzzwords like "empower", "loop" |
+| 8 | 过度礼貌 | over_polite | 过于客套 / Excessively polite |
+| 9 | 确定性过高 | over_certain | 缺乏"可能""也许" / Lacks "maybe", "probably" |
+| 10 | 逻辑过于完美 | over_perfect | 缺乏思维跳跃 / Lacks natural thought jumps |
+| 11 | 重复表达 | repetition | 近义句反复出现 / Repetitive expressions |
+| 12 | 格式痕迹 | format | Markdown过于工整 / Overly neat Markdown |
+| 13 | 主观缺乏 | subjectivity | 缺乏个人立场 / Lacks personal opinion |
+| 14 | 例子泛化 | generalization | "比如"但无真实案例 / "For example" but no real case |
+| 15 | 结尾套路 | ending | "希望对您有帮助" / Cliché endings like "Hope helps" |
 
-### 1. social（社交媒体：朋友圈、小红书）
+---
+
+## 场景权重配置（21场景 × 15维度）/ Scene Weights (21 × 15)
+
+### 1. social（社交媒体 / Social Media）
 ```json
 {
   "complexity": 0.05, "vocabulary": 0.05, "emotion": 0.15,
@@ -56,7 +68,7 @@ metadata:
 }
 ```
 
-### 2. professional（专业文章：博客、攻略、教程）
+### 2. professional（专业文章 / Professional Articles）
 ```json
 {
   "complexity": 0.10, "vocabulary": 0.15, "emotion": 0.02,
@@ -67,7 +79,7 @@ metadata:
 }
 ```
 
-### 3. work（工作话术：商务、邮件、对接）
+### 3. work（工作话术 / Work Communication）
 ```json
 {
   "complexity": 0.05, "vocabulary": 0.10, "emotion": 0.20,
@@ -78,7 +90,7 @@ metadata:
 }
 ```
 
-### 4. casual（日常闲聊）
+### 4. casual（日常闲聊 / Casual Chat）
 ```json
 {
   "complexity": 0.05, "vocabulary": 0.05, "emotion": 0.20,
@@ -89,7 +101,7 @@ metadata:
 }
 ```
 
-### 5. education（论文、作业、笔记）
+### 5. education（论文、作业 / Education）
 ```json
 {
   "complexity": 0.15, "vocabulary": 0.20, "emotion": 0.02,
@@ -100,7 +112,7 @@ metadata:
 }
 ```
 
-### 6. ecommerce（商品描述、买家秀）
+### 6. ecommerce（商品描述 / E-commerce）
 ```json
 {
   "complexity": 0.02, "vocabulary": 0.05, "emotion": 0.20,
@@ -111,7 +123,7 @@ metadata:
 }
 ```
 
-### 7. medical（医疗问诊、健康建议）
+### 7. medical（医疗问诊 / Medical）
 ```json
 {
   "complexity": 0.08, "vocabulary": 0.20, "emotion": 0.05,
@@ -122,7 +134,7 @@ metadata:
 }
 ```
 
-### 8. legal（合同、协议）
+### 8. legal（合同、协议 / Legal）
 ```json
 {
   "complexity": 0.08, "vocabulary": 0.30, "emotion": 0.00,
@@ -133,7 +145,7 @@ metadata:
 }
 ```
 
-### 9. finance（金融报告、投资分析）
+### 9. finance（金融报告 / Finance）
 ```json
 {
   "complexity": 0.08, "vocabulary": 0.25, "emotion": 0.02,
@@ -144,7 +156,7 @@ metadata:
 }
 ```
 
-### 10. media（新闻稿、采访稿）
+### 10. media（新闻稿 / Media）
 ```json
 {
   "complexity": 0.08, "vocabulary": 0.10, "emotion": 0.10,
@@ -155,7 +167,7 @@ metadata:
 }
 ```
 
-### 11. hr（招聘JD、员工手册）
+### 11. hr（招聘JD / HR）
 ```json
 {
   "complexity": 0.08, "vocabulary": 0.15, "emotion": 0.02,
@@ -166,7 +178,7 @@ metadata:
 }
 ```
 
-### 12. food（菜单、食谱、餐厅评价）
+### 12. food（美食 / Food）
 ```json
 {
   "complexity": 0.05, "vocabulary": 0.05, "emotion": 0.08,
@@ -177,7 +189,7 @@ metadata:
 }
 ```
 
-### 13. travel（行程安排、景点介绍）
+### 13. travel（旅行 / Travel）
 ```json
 {
   "complexity": 0.05, "vocabulary": 0.08, "emotion": 0.15,
@@ -188,7 +200,7 @@ metadata:
 }
 ```
 
-### 14. realestate（房源描述）
+### 14. realestate（房产 / Real Estate）
 ```json
 {
   "complexity": 0.05, "vocabulary": 0.15, "emotion": 0.08,
@@ -199,7 +211,7 @@ metadata:
 }
 ```
 
-### 15. customer_service（客服答复、FAQ）
+### 15. customer_service（客服 / Customer Service）
 ```json
 {
   "complexity": 0.02, "vocabulary": 0.05, "emotion": 0.25,
@@ -210,7 +222,7 @@ metadata:
 }
 ```
 
-### 16. tech_doc（技术文档、API注释）
+### 16. tech_doc（技术文档 / Tech Doc）
 ```json
 {
   "complexity": 0.15, "vocabulary": 0.30, "emotion": 0.02,
@@ -221,7 +233,7 @@ metadata:
 }
 ```
 
-### 17. entertainment（娱乐、八卦、影评）
+### 17. entertainment（娱乐 / Entertainment）
 ```json
 {
   "complexity": 0.03, "vocabulary": 0.05, "emotion": 0.30,
@@ -232,7 +244,7 @@ metadata:
 }
 ```
 
-### 18. writing（小说、故事、散文）
+### 18. writing（文学创作 / Creative Writing）
 ```json
 {
   "complexity": 0.05, "vocabulary": 0.08, "emotion": 0.25,
@@ -243,7 +255,7 @@ metadata:
 }
 ```
 
-### 19. marketing（营销文案、广告）
+### 19. marketing（营销 / Marketing）
 ```json
 {
   "complexity": 0.05, "vocabulary": 0.08, "emotion": 0.30,
@@ -254,7 +266,7 @@ metadata:
 }
 ```
 
-### 20. formal（官方声明、公文）
+### 20. formal（官方声明 / Formal）
 ```json
 {
   "complexity": 0.10, "vocabulary": 0.30, "emotion": 0.00,
@@ -265,7 +277,7 @@ metadata:
 }
 ```
 
-### 21. default（通用）
+### 21. default（通用 / Default）
 ```json
 {
   "complexity": 0.08, "vocabulary": 0.12, "emotion": 0.10,
@@ -276,194 +288,187 @@ metadata:
 }
 ```
 
-## 自动场景判断
+---
 
-**从对话上下文判断：**
+## 自动场景判断 / Automatic Scene Detection
 
-1. **检测平台/用途关键词**：
-   - social: 朋友圈、小红书、微博、抖音、分享、发个
-   - professional: 文章、博客、攻略、教程、分析、报告
-   - work: 客户、话术、方案、商务、邮件、对接
-   - education: 论文、作业、笔记、学术、研究
-   - ecommerce: 商品、店铺、买家、优惠、销量
-   - medical: 症状、治疗、医生、健康、问诊
-   - legal: 合同、协议、条款、条款、依法
-   - finance: 投资、收益、股票、基金、财报
-   - hr: 招聘、面试、薪资、员工、JD
-   - food: 菜谱、餐厅、好吃、做法、食材
-   - travel: 旅游、行程、酒店、景点、机票
-   - realestate: 房子、房源、平米、户型、房价
-   - customer_service: 客服、问题、回复、解决
-   - tech_doc: 文档、API、代码、开发、接口
-   - entertainment: 电影、明星、八卦、好看
-   - writing: 故事、小说、散文、写作
-   - marketing: 推广、引流、转化、活动
-   - formal: 声明、公告、官方、公示
+### 关键词匹配 / Keyword Matching
 
-2. **检测文本特征**：
-   - 文本长度 > 1000字 → education/finance/legal
-   - 含emoji/表情 → social/food/entertainment
-   - 含"请问""谢谢""麻烦" → work/customer_service
-   - 含代码块 → tech_doc
-   - 含价格/数字密集 → ecommerce/finance/realestate
-   - 有问句+答句结构 → customer_service/medical
+| 场景 / Scene | 关键词 / Keywords |
+|-------------|------------------|
+| social | 朋友圈、小红书、微博、抖音、分享 / WeChat, Xiaohongshu, Weibo, Douyin, share |
+| professional | 文章、博客、攻略、教程、分析 / article, blog, guide, tutorial, analysis |
+| work | 客户、话术、方案、商务、邮件 / client, script, proposal, business, email |
+| education | 论文、作业、笔记、学术 / paper, homework, notes, academic |
+| ecommerce | 商品、店铺、买家、优惠 / product, store, buyer, deal |
+| medical | 症状、治疗、医生、健康 / symptom, treatment, doctor, health |
+| legal | 合同、协议、条款 / contract, agreement, terms |
+| finance | 投资、收益、股票、基金 / investment, return, stock, fund |
+| hr | 招聘、面试、薪资 / recruitment, interview, salary |
+| food | 菜谱、餐厅、好吃 / recipe, restaurant, delicious |
+| travel | 旅游、行程、酒店、景点 / travel, itinerary, hotel, attraction |
+| realestate | 房子、房源、平米、户型 / house, listing, sqm, layout |
+| customer_service | 客服、问题、回复 / support, issue, reply |
+| tech_doc | 文档、API、代码 / doc, API, code |
+| entertainment | 电影、明星、八卦 / movie, star, gossip |
+| writing | 故事、小说、散文 / story, novel, essay |
+| marketing | 推广、引流、活动 / promotion, traffic, campaign |
+| formal | 声明、公告、官方 / statement, announcement, official |
 
-### 自定义权重
+### 文本特征检测 / Text Feature Detection
 
-用户可手动指定场景：
-```
-"帮我检测下这篇，场景用work模式"
-"用legal模式看看这段合同"
-```
-
-## 评分算法
-
-```
-AI得分 = Σ(维度分 × 权重) / Σ(权重) × 100
-```
-
-**评分对照：**
-- 90-100: 明显AI生成
-- 70-89: 较大AI痕迹
-- 50-69: 部分AI特征
-- 30-49: 较像人类
-- 0-29: 非常人类
-
-## 输出格式
-
-```markdown
-## AI检测报告
-
-**AI评分**: XX/100 (等级)
-**检测场景**: social (自动判断/手动指定)
-
-### 特征标签
-- [标签1]
-- [标签2]
-
-### 问题点
-1. 问题描述
-
-### 改进建议
-1. 具体建议
-```
-
-## 改进建议库
-
-根据检测到的特征，给出对应建议：
-
-| 特征 | 建议 |
-|------|------|
-| 句式过长 | 拆分成短句，增加节奏感 |
-| 词汇太正式 | 替换为口语化表达 |
-| 缺乏情感 | 加入语气词、感叹 |
-| 没有细节 | 添加具体例子或个人经历 |
-| 模式化开头 | 换个自然切入方式 |
-| 过于完美 | 适当留瑕疵，更真实 |
-| 套话过多 | 少用"赋能""闭环"，用直白话 |
-| 过度礼貌 | 去掉客套话，像正常人说话 |
-| 确定性过高 | 加点"可能""也许""不确定" |
-| 逻辑过完美 | 偶尔"跑题"一下，加思维跳跃 |
-| 重复表达 | 删掉重复内容 |
-| 格式工整 | 减少标题层级，混用列表 |
-| 主观缺乏 | 加个人看法："我觉得..." |
-| 例子空泛 | 给出真实例子，不要"比如..." |
-| 结尾套路 | 去掉"希望对您有帮助" |
-
-## 使用场景
-
-**触发时机：**
-- 用户完成文本创作后
-- 检测到用户请求"优化这段文字"
-- 内容需要审核时
-- 用户指定场景（如"用work模式检测"）
-
-**示例用户请求：**
-- "帮我看看这篇像不像AI写的"
-- "这段话太官方了，怎么改自然点"
-- "检测下这个文案有没有AI味"
-- "用legal模式检测下这段合同"
-- "帮我检测下这篇电商文案"
+- 文本长度 > 1000字 → education/finance/legal
+- 含emoji/表情 → social/food/entertainment
+- 含"请问""谢谢" → work/customer_service
+- 含代码块 → tech_doc
+- 含价格/数字密集 → ecommerce/finance/realestate
+- 有问句+答句结构 → customer_service/medical
 
 ---
 
-## Agent集成指南
+## 评分算法 / Scoring Algorithm
 
-### 推荐的集成方式
+```
+AI得分 = Σ(维度分 × 权重) / Σ(权重) × 100
+/en AI Score = Σ(dimension_score × weight) / Σ(weight) × 100
+```
 
-**方式1：透明处理（推荐）**
+### 评分对照 / Score Reference
+
+| 分数 / Score | 等级 / Level | 描述 / Description |
+|-------------|--------------|-------------------|
+| 90-100 | 明显AI生成 / Clearly AI | 浓重的AI特征 / Strong AI features |
+| 70-89 | 较大AI痕迹 / Significant AI | 明显AI风格 / Noticeable AI style |
+| 50-69 | 部分AI特征 / Partial AI | 混合特征 / Mixed features |
+| 30-49 | 较像人类 / Mostly Human | 较自然的表达 / Relatively natural |
+| 0-29 | 非常人类 / Very Human | 非常像人写 / Very human-like |
+
+---
+
+## 输出格式 / Output Format
+
+```markdown
+## AI检测报告 / AI Detection Report
+
+**AI评分 / AI Score**: XX/100 (等级 / Level)
+**检测场景 / Scene**: social (自动判断 / 自动检测)
+
+### 特征标签 / Feature Tags
+- [标签1 / Tag 1]
+- [标签2 / Tag 2]
+
+### 问题点 / Issues
+1. 问题描述 / Issue description
+
+### 改进建议 / Suggestions
+1. 具体建议 / Specific suggestion
+```
+
+---
+
+## 改进建议库 / Improvement Library
+
+| 特征 / Feature | 建议 / Suggestion |
+|---------------|------------------|
+| 句式过长 / Long sentences | 拆分成短句，增加节奏感 / Split into short sentences |
+| 词汇太正式 / Too formal | 替换为口语化表达 / Use colloquial expressions |
+| 缺乏情感 / No emotion | 加入语气词、感叹 / Add exclamations |
+| 没有细节 / No details | 添加具体例子 / Add specific examples |
+| 模式化开头 / Cliché opening | 换个自然切入方式 / Use natural opening |
+| 过于完美 / Too perfect | 适当留瑕疵，更真实 / Add some imperfections |
+| 套话过多 / Too many clichés | 少用黑话，用直白话 / Use plain language |
+| 过度礼貌 / Overly polite | 去掉客套话 / Remove formalities |
+| 确定性过高 / Over certain | 加点"可能""也许" / Add uncertainty |
+| 逻辑过完美 / Too logical | 偶尔跑题 / Add tangents |
+| 重复表达 / Repetitive | 删掉重复内容 / Remove repetition |
+| 格式工整 / Too neat | 减少标题层级 / Reduce heading levels |
+| 主观缺乏 / No subjectivity | 加个人看法 / Add personal opinion |
+| 例子空泛 / Vague examples | 给出真实例子 / Give real examples |
+| 结尾套路 / Cliché ending | 去掉套路结尾 / Remove cliché endings |
+
+---
+
+## Agent集成指南 / Agent Integration Guide
+
+### 方式1：透明处理（推荐）/ Method 1: Transparent (Recommended)
 
 用户无感知，Agent自动完成检测和优化：
 
 ```
 用户：帮我写个深圳遛娃攻略
+User: Help me write a Shenzhen parent-child travel guide
 
-Agent内部流程：
-1. 生成内容（原始）
-2. 自动调用Skill检测
-3. 如果AI评分 > 60，自动优化
-4. 返回优化后的结果
+Agent内部流程 / Internal flow:
+1. 生成内容（原始）/ Generate original content
+2. 自动调用Skill检测 / Auto-call Skill for detection
+3. 如果AI评分 > 60，自动优化 / If AI score > 60, auto-optimize
+4. 返回优化后的结果 / Return optimized result
 
 用户感知：只看到一个自然、像人写的结果
+User perception: Only sees a natural, human-like result
 ```
 
-**方式2：轻度提示**
-
-自动检测但给用户知情权：
+### 方式2：轻度提示 / Method 2: Light Prompt
 
 ```
 用户：帮我写个深圳遛娃攻略
+User: Help me write a Shenzhen parent-child travel guide
 
-Agent：
-[返回优化后的内容]
+Agent返回优化后的内容，并附带提示
+Agent returns optimized content with a hint
 
 ---
 上周带娃去了深圳科技馆（新馆），真的惊艳到了！...
 ---
 
 ✓ 已自动优化为更自然的表达 [查看详情]
+✓ Auto-optimized to natural expression [View details]
 ```
 
-**方式3：用户主动触发**
-
-用户明确要求检测时才展示报告：
+### 方式3：用户主动触发 / Method 3: User-Triggered
 
 ```
 用户：优化下这段文字
+User: Optimize this text
 → 返回优化后内容 + "查看AI评分"链接
+→ Return optimized content + "View AI score" link
 
 用户：查看AI评分
+User: View AI score
 → 展示完整检测报告
+→ Show complete detection report
 ```
 
-### 代码集成示例
+### 配置建议 / Configuration
 
-```python
-# 伪代码示例
-def generate_with_humanize(prompt):
-    # 1. 生成原始内容
-    content = llm.generate(prompt)
-    
-    # 2. 自动检测
-    scene = detect_scene(prompt)  # 自动判断场景
-    weights = get_weights(scene)   # 获取权重
-    score = detect(content, weights)  # 检测打分
-    
-    # 3. 如果需要优化
-    if score > 60:
-        content = optimize(content, scene)
-    
-    # 4. 返回结果（可选：附带提示）
-    return {
-        "content": content,
-        "optimized": score > 60,
-        "score": score  # 可选返回
-    }
-```
+- **默认启用透明模式** / Enable transparent mode by default
+- **AI评分阈值** / AI score threshold: >60分自动优化 / auto-optimize, <30分直接返回 / return directly
+- **提示信息** / Prompt: 可配置是否展示"已优化"提示 / configurable "optimized" hint
+- **用户可选** / User option: 提供开关让用户选择是否自动优化 / provide toggle for auto-optimize
 
-### 配置建议
+---
 
-- **默认启用透明模式**：AI生成后自动Humanize
-- **AI评分阈值**：>60分自动优化，<30分直接返回
-- **提示信息**：可配置是否展示"已优化"提示
-- **用户可选**：提供开关让用户选择是否自动优化
+## 使用示例 / Usage Examples
+
+**触发时机 / When to trigger:**
+- 用户完成文本创作后 / After user completes text creation
+- 检测到用户请求"优化这段文字" / When user requests "optimize this text"
+- 内容需要审核时 / When content needs review
+
+**示例用户请求 / Example requests:**
+- "帮我看看这篇像不像AI写的" / "Check if this looks AI-written"
+- "这段话太官方了，怎么改自然点" / "This is too formal, how to make it natural"
+- "检测下这个文案有没有AI味" / "Check if this copy has AI smell"
+- "用legal模式检测下这段合同" / "Detect this contract with legal mode"
+- "帮我检测下这篇电商文案" / "Check this e-commerce copy"
+
+---
+
+## 技术细节 / Technical Details
+
+- **检测维度数 / Detection dimensions**: 15
+- **场景数量 / Scenes**: 21
+- **权重配置 / Weight config**: JSON格式 / JSON format
+- **版本 / Version**: 1.0.0
+- **分类 / Category**: content-generation
+- **标签 / Tags**: AI检测, 文本优化, 人性化 / AI detection, text optimization, humanization
